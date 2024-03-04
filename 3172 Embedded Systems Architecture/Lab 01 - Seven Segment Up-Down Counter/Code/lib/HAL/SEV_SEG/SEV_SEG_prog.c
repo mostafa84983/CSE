@@ -15,7 +15,7 @@ static u8 Global_SEV_SEG_ARR[10] = {
 
 void SEV_SEG_VidInit()
 {
-    SEGMENT_DDR = 0xFF;
+    DIO_VidSetPortDirection(SEGMENT_PORT, Output);
     DIO_VidSetPinDirection(COMM_DDR, COMM_ONES, Output);
     DIO_VidSetPinDirection(COMM_DDR, COMM_TENS, Output);
 }
@@ -29,14 +29,14 @@ void SEV_SEG_VidDisplayNumber(u8 Local_u8Number, et_Status SEG_Activator)
     DIO_VidSetPinValue(COMM_PORT, COMM_TENS, !SEG_Activator);
     DIO_VidSetPinValue(COMM_PORT, COMM_ONES, SEG_Activator);
     // DISPLAY ONES
-    SEGMENT_PORT = Global_SEV_SEG_ARR[Local_u8Ones];
+    DIO_VidSetPortValue(SEGMENT_PORT, Global_SEV_SEG_ARR[Local_u8Ones]);
     SEG_DELAY;
 
     // DISABLE ONES & ACTIVATE TENS
     DIO_VidSetPinValue(COMM_PORT, COMM_ONES, !SEG_Activator);
     DIO_VidSetPinValue(COMM_PORT, COMM_TENS, SEG_Activator);
     // DISPLAY TENS
-    SEGMENT_PORT = Global_SEV_SEG_ARR[Local_u8Tens];
+    DIO_VidSetPortValue(SEGMENT_PORT, Global_SEV_SEG_ARR[Local_u8Tens]);
     SEG_DELAY;
 }
 
@@ -46,7 +46,7 @@ void SEV_SEG_VidDisplayOnes(u8 Local_u8Ones)
     DIO_VidSetPinValue(COMM_PORT, COMM_TENS, PinHigh);
     DIO_VidSetPinValue(COMM_PORT, COMM_ONES, PinLow);
     // DISPLAY ONES
-    SEGMENT_PORT = Global_SEV_SEG_ARR[Local_u8Ones];
+    DIO_VidSetPortValue(SEGMENT_PORT, Global_SEV_SEG_ARR[Local_u8Ones]);
 }
 
 void SEV_SEG_VidDisplayTens(u8 Local_u8Tens)
@@ -55,7 +55,7 @@ void SEV_SEG_VidDisplayTens(u8 Local_u8Tens)
     DIO_VidSetPinValue(COMM_PORT, COMM_ONES, PinHigh);
     DIO_VidSetPinValue(COMM_PORT, COMM_TENS, PinLow);
     // DISPLAY TENS
-    SEGMENT_PORT = Global_SEV_SEG_ARR[Local_u8Tens];
+    DIO_VidSetPortValue(SEGMENT_PORT, Global_SEV_SEG_ARR[Local_u8Tens]);
 }
 
 void SEV_SEG_VidSpinner()
@@ -63,7 +63,7 @@ void SEV_SEG_VidSpinner()
     u8 Local_u8Spinner = 0b00000010;
     while (Local_u8Spinner < 0b10000000)
     {
-        SEGMENT_PORT = Local_u8Spinner;
+        DIO_VidSetPortValue(SEGMENT_PORT, Local_u8Spinner);
         SEG_DELAY;
         SEG_DELAY;
         Local_u8Spinner *= 2;

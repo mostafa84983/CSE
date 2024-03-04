@@ -2,7 +2,6 @@
 #define DIO_PRIVATE_H_
 
 #include "../../../include/std_types.h"
-#include "../../../include/bitmanip.h"
 
 #define PORTA *((volatile u8*)0x3B)
 #define DDRA *((volatile u8*)0x3A)

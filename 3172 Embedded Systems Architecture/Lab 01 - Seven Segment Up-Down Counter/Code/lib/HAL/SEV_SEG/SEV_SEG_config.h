@@ -14,14 +14,14 @@
 #define SEG_NUM_EIGHT 0b11111110
 #define SEG_NUM_NINE 0b11001110
 
-#define SEGMENT_PORT PORTA
-#define SEGMENT_DDR DDRA
+#define SEGMENT_PORT Port_A
+// #define SEGMENT_DDR DDRA
 
 #define COMM_DDR Port_C
 #define COMM_PORT Port_C
 #define COMM_ONES Pin6
 #define COMM_TENS Pin7
 
-#define SEG_DELAY _delay_ms(3)
+#define SEG_DELAY _delay_ms(40)
 
 #endif
